@@ -1,0 +1,12 @@
+<table>
+	<tr>
+		<th>sender</th>
+		<th>subject</th>
+		<td>Data</td>
+	</tr>
+	<tr ng-repeat="item in items">
+		<td>{{item.sender}}</td>
+		<td><a href="#/view/{{item.id}}">{{item.subject}}</a></td>
+		<td>{{item.Date}}</td>
+	</tr>
+</table>

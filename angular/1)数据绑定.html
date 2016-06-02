@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8" />
+		<title>Simple app</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<input type="text" ng-model="console" name="" id="" value="" />
+		<h1>hello{{console}}</h1> 
+		 
+		Your name:<input type="text" ng-model="yourname" placeholder="world" />
+		<h2> {{yourname||'world'}}hello</h2>   
+          <div ng-controller="myController">
+        
+		  <h1>{{clock.now}}</h1>
+       
+		  </div>
+          <script type="text/javascript">
+          
+		  function myController($scope){
+          		$scope.clock={
+          			now: new Date()
+          		};
+          		var updateClock=function(){
+          			$scope.clock.now=new Date();
+          		};
+          		setInterval(function(){
+          			$scope.$apply(updateClock);
+          		},1000);
+          		updateClock();
+          	}
+          </script>
+	</body>
+</html>

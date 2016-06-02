@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>表达式</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<!--
+           	作者：maweichao90@126.com
+           	时间：2015-10-26
+           	描述：模块声明和调用
+           -->
+		<div ng-app="appName">
+			<div ng-controller="contro">
+				<h3>1.watch监听angulaer解析</h3> 只能输入数字
+				<input type="text" ng-model='expr' />
+				<h1>{{parseValue}}</h1>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var myapp = angular.module("appName", []);
+			myapp.controller('contro', function($scope, $parse) {
+				//用watcch监听angulaer的解析情况
+				$scope.$watch('expr', function(newvalue, oldvalue, scope) {
+					if (newvalue != oldvalue) {
+						// 用该表达式设置parseFun 
+						var pareFn = $parse(newvalue);
+						// 获取经过解析后表达式的值
+						$scope.parseValue = pareFn(scope);
+					}
+				});
+			});
+		</script>
+		<hr />
+
+		<div ng-app="myapp">
+			<div ng-controller="myController">
+				<h2>2.插值字符串示例</h2>
+				<div id="">
+					请输入email地址
+				</div>
+				<input type="text" ng-model='inputEmail' name="" id="" value="" />
+				<br>
+				<br>
+				<div id="">
+					email详细
+				</div>
+				<textarea ng-model='textEmail' name="" rows="5" cols="50"></textarea>
+				<div id="">
+					展示email内容
+				</div>
+				<div >
+					<%showEmail%>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			 //插值字符串
+			 //自定义一个模版   该模版负责邮件解析用的
+		    //描述：没有实现成功
+			angular.module('emailParer', []).config(['$interpolateProvider',
+				function($interpolateProvider) {
+					$interpolateProvider.startSymbol('<%');
+					$interpolateProvider.endSymbol('%>');	 
+				}
+			]).factory('EmailParser', ['$interpolate',
+				function($interpolate) {
+					//处理解析的服务
+					return {
+						parse: function(text, context) {
+							var template = $interpolate(text);
+							return template(context);
+						}
+					};
+				}
+			]);
+			angular.module('myapp', ['emailParer']).controller('myController', ['$scope', 'EmailParser',
+					function($scope, EmailParser) {
+						//设置监听
+						$scope.$watch('textEmail', function(body) {
+							if (body) {
+								console.log(body);
+								$scope.showEmail = EmailParser.parse(body, {
+									inputEmail: $scope.inputEmail
+								});
+							}
+						})
+					}
+				]);
+		</script>
+	</body>
+
+</html>

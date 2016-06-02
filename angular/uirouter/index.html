@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<title>uirouter嵌套的使用</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+	<script src="../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/angular-ui-router.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<h2>uirouter的多层嵌套</h2>
+		<div>
+			<ul class="nav navbar-nav">
+				<li><a href ui-sref="list">list</a></li>
+				<li><a href ui-sref="about">About</a></li>
+			</ul>
+		</div> 
+		<!--<div ng-controller="CityController">
+			<select ng-model="selected" ng-options="city.id as city.name for city in cities">
+				<option value="">Choose City</option>
+			</select>
+		</div>
+		<script type="text/javascript">
+			angular.module('myApp', [])
+				.controller('CityController', function($scope) {
+					$scope.cities = [{
+						id:1,
+						name: 'Seattle'
+					}, {
+						id:2,
+						name: 'San Francisco'
+					}, {
+						id:3,
+						name: 'Chicago'
+					}, {
+						id:4,
+						name: 'New York'
+					}, {id:5,
+						name: 'Boston'
+					}]; 
+				    $scope.selected=$scope.cities[1].id;//如果想要第一个值
+					  
+				});
+		</script>-->
+		<br>
+		<br>
+		<br>
+		<!--
+            	描述：加载第一个路由转发地址
+         -->
+		<div class="container" ui-view>
+		</div>
+	</body>
+
+</html>

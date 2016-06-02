@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>作用域</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="appName">
+		<!--
+           	作者：maweichao90@126.com
+           	时间：2015-10-26
+           	描述：模块声明和调用
+           -->
+		<div ng-controller="personController">
+			<div ng-controller="childController">
+				<button ng-click="btn()">改变名字</button>
+			</div>
+			{{person.name}}
+		</div>
+		<script type="text/javascript">
+			var app = angular.module("appName", []);
+			app.controller('personController',
+				function($scope) {
+					$scope.person = {
+						name: 'maweichao'
+					}
+				});
+			app.controller('childController',
+				function($scope) {
+					$scope.btn = function() {
+						$scope.person.name = '改变之后的名字';
+					}
+				}
+			)
+		</script>
+	</body>
+
+</html>

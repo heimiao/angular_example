@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body ng-app="myApp">
+		<div ng-controller="test">
+			{{name}}
+		</div>
+		<script type="text/javascript">
+			var modules = angular.module('myApp', []);
+			//推断注入
+			/*modules.controller("test", function($scope) {
+				$scope.name = "黑猫"
+			});*/
+			//
+			//行内注入也有人说是内联注入
+			/*modules.controller("test", ['$scope',function(test1) {
+				test1.name = "黑猫"
+			}]);*/
+			
+			//声明注入或者标注模式注入
+			/*var contr=function(thismyname){
+				thismyname.name="黑猫";
+			}
+			contr.$inject=['$scope'];
+			modules.controller("test",contr);*/
+			//
+			modules.factory('game', function() {
+				return {
+					name: "黑猫"
+				}
+			});
+			modules.controller("test", ['$scope', '$injector', 
+			function($scope, $injector) {
+				/*$injector.invoke(function(game) {
+					console.log(game.name);
+				})*/
+				//annotate分析参数用的方法
+				console.log($injector.annotate(function (arg0,arg1,arg2){}));
+				
+			}]);
+		</script>
+
+	</body>
+
+</html>

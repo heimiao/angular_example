@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>控制器和指令的交互使用</title>
+		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+		<script src="" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="myApp">
+		<!--
+        	作者：maweichao90@126.com
+        	时间：2016-01-02
+        	描述：自定义指令
+        -->
+		<div class="col-md-6" ng-controller="mycontroller">
+			<div load-data load="test()"> </div>
+			<div load-data load="test2()">  </div>
+		</div> 
+		
+		<script type="text/javascript">
+			var mymodule = angular.module('myApp', []);
+			mymodule.controller("mycontroller", ['$scope', function($scope) {
+				$scope.items=[{id:1},{id:2},{id:3},{id:4},{id:5}]
+				$scope.test = function() {
+					console.log("加载数据中...");
+				}
+				$scope.test2=function(){
+					console.log("加载2数据中...");
+				}
+			}]); 
+			mymodule.directive('loadData', function() {
+				return {
+					restrict: 'AEMC',
+					template:"<div ng-repeat='itme in items'><input id={{itme.id}}></div>",
+					 link: function(scope, element, attr,parterController) {
+					 	console.log(element);
+					 	
+					 	/*//为自定义指令绑定事件
+						element.bind("click", function() {
+							// scope.loadData();
+							scope.$apply(attr.load);
+						});*/
+					} 
+				}
+			});
+		</script>
+		
+		
+		 
+	</body>
+
+</html>

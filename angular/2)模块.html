@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>模块</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body> 
+           <!--
+           	作者：maweichao90@126.com
+           	时间：2015-10-26
+           	描述：模块声明和调用
+           -->
+           <div ng-app="myapp">
+           	{{name}}
+           </div>
+          <script type="text/javascript">
+            angular.module("myapp",[]).run(function($rootScope){
+            	 $rootScope.name="hello";
+            }) 
+          </script> 
+	</body>
+</html>

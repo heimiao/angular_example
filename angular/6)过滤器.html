@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>表达式</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div ng-app="myapp">
+			<div>
+				<!--
+                	作者：maweichao90@126.com
+                	时间：2015-10-26
+                	描述：过滤掉我的大写字母
+                -->
+				{{"San Francisco Is Very Cloudy" | lowercase}} 
+				<br> {{name}}
+			</div>
+			<div ng-bind="{{time|dateTime}}"></div>
+			 <p ng-repeat="item in items">{{item}}</p>
+		</div>
+		</div>
+		<script type="text/javascript">
+		Date.prototype.format = function(format){
+				var o = {
+				"M+" : this.getMonth()+1, // month
+				"d+" : this.getDate(), // day
+				"h+" : this.getHours(), // hour
+				"m+" : this.getMinutes(), // minute
+				"s+" : this.getSeconds(), // second
+				"q+" : Math.floor((this.getMonth()+3)/3), // quarter
+				"S" : this.getMilliseconds() // millisecond
+				}
+				
+				if(/(y+)/.test(format)) {
+				format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+				}
+				
+				for(var k in o) {
+				if(new RegExp("("+ k +")").test(format)) {
+				format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+				}
+				}
+				return format;
+				} 
+
+			//自定义过滤器
+			var myapps = angular.module('myapp', []);
+			myapps.filter('capitalize', function() {
+				return function(input) {
+					if (input) return input[0].toUpperCase() + inputslice(1);
+				}
+			})
+			 angular.module("myapp").filter('dateTime', function() {
+				return function(format) {
+					 return new Date(format).format('yyyy-MM');
+				};
+			}) 
+			myapps.run(function($rootScope) {
+				$rootScope.items=["wei","maweichao"]
+				$rootScope.name = 11
+				$rootScope.time = 1448985600000;
+			})
+		</script>
+
+		<!--表单验证 任务量比较大再次不写了-->
+		<form action="" method="post" novalidate name=" signup_form" ng-submit="signupForm()">
+			<fieldset id="">
+				<legend>注册验证</legend>
+				<div id="">
+					name:
+					<input type="text" name="name" ng-model="signup.name" id="" value="" required />
+					<div class="error" ng-show="signup_form.name.$dirty && signup_form.name.$invalid">
+						<small class="error" ng-show="signup_form.name.$error.required">
+						Your name is required.
+						</small>
+						<small class="error" ng-show="signup_form.name.$error.minlength">
+						Your name is required to be at least 3 characters
+						</small>
+						<small class="error" ng-show="signup_form.name.$error.maxlength">
+						Your name cannot be longer than 20 characters
+						</small>
+					</div>
+				</div>
+				<div id="">
+					email:
+					<input type="text" name="email" id="" ng-model="signup.email" value="" required />
+				</div>
+				<div id="">
+					youName:
+					<input type="text" name="youName" id="" ng-model="signup.youName" value="" required />
+				</div>
+				<input type="submit" value="测试验证" />
+			</fieldset>
+		</form>
+	</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<!--
+	作者：maweichao90@126.com
+	时间：2015-10-27
+	描述：
+	-->
+
+	<body ng-app="myApp">
+		<h1>A-Mail</h1>
+		 <div ng-view> 
+		 	
+		</div>
+
+		<script type="text/javascript">
+			var aMailServices = angular.module('myApp', ['ngRoute']);
+			 //定义路由模块
+			aMailServices.config(function($routeProvider) {
+				$routeProvider.when('/', {
+					controller: mycontro,
+					templateUrl: 'list.html'
+				}).when('/view/:id', {
+					controller: DetailController,
+					templateUrl: 'detail.html' ,
+ 					resolve:{datas:function(){return "2"}}
+				}).otherwise({
+					redirectTo: '/'
+				});
+			});
+			
+			items = [{
+				id: 0,
+				sender: 'jean@126.com',
+				subject: 'Hi there,old friend',
+				Date: '2015-10-23',
+				recipients: ['greg@somecompany.com'],
+				message: 'hey,we shouldwe shouldwe should'
+			}, {
+				id: 1,
+				sender: 'jean@126.com',
+				subject: 'jianli',
+				Date: '2015-10-27',
+				recipients: ['greg@somecompany.com'],
+				message: 'my name is maweichao,can you help me?'
+			}, {
+				id: 2,
+				sender: 'jean@126.com',
+				subject: 'object',
+				Date: '2015-10-28',
+				recipients: ['greg@somecompany.com'],
+				message: 'Set up the service factory to create our Items interface to the'
+			}, {
+				id: 3,
+				sender: 'jean@126.com',
+				subject: 'xiangmu',
+				Date: '2015-10-26',
+				recipients: ['greg@somecompany.com'],
+				message: 'xiang mu ji hua 205-23 bi xu shang xian'
+			}];
+			function mycontro($scope) { 
+				$scope.items = items; 
+			}
+			function DetailController($scope, $routeParams ) {
+				$scope.detail = items[$routeParams.id];
+			}
+		</script>
+	</body>
+
+</html>

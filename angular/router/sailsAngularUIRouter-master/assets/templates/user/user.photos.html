@@ -1,0 +1,169 @@
+<h1 style="float: left">Your Photos</h1>
+
+<!-- <form id="uploadForm"
+      enctype="multipart/form-data"
+      action="/upload/upload"
+      method="post"> -->
+<div ng-controller="FileUploadController" >
+	<form style="text-align: right">
+	    <!-- <input type="file" id="userPhotoInput" name="userPhoto" /> -->
+	    <!-- <input type="file" ng-file-select="uploadFile($files)" /> -->
+	    <span class="btn btn-info btn-file" style="margin-top: 4px;">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            &nbsp Upload<input type="file" ng-file-select="onFileSelect($files)" multiple>
+        </span>
+        <span>
+         <button ng-hide="editing" ng-click="editMode()" type="button" style="margin-top: 4px;"class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp Edit</button>
+
+          <button ng-show="editing" ng-click="doneEditing()" type="button" style="margin-top: 4px;"class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp Done</button>
+        </span>
+	    <!-- <input type="submit" value="upload" > -->
+	</form>
+
+    <!-- Let's show the upload panel in the bottom left to show the progress of the upload -->
+    <div class="uploadPanel col-xs-11 col-ms-8 col-sm-5 col-md-5 col-lg-4 fade hidden" ng-class="{inTransparent: showPanel, hidden: !showPanel}" jqyoui-draggable data-drag="true" ng-mouseover="stopTimer()">
+        <div class="panel panel-default" >
+              <div class="panel-heading clearfix"><strong>Recent Uploads ({{recentUploads.length}})</strong><button type="button" class="close"  data-dismiss="modal" aria-hidden="true" ng-click="closePanel()">&times;</button></div>
+              <div class="panel-body">
+                <div ng-repeat="recentUpload in recentUploads" class="notification-animation">
+                    <div class="col-xs-3 col-ms-3 col-sm-3 col-md-3 col-lg-3">
+                        <img class="thumbnail" ng-src="{{recentUpload.dataUrl}}"><!-- ng-show="path">-->
+                    </div>
+
+                    <div class="col-xs-9 col-ms-9 col-sm-9 col-md-9 col-lg-9">
+                        <p>{{recentUpload.name | characters:25 :true}}<span class="pull-right" style="color: green;"><strong>{{recentUpload.progress}}%</strong></span></p>
+
+                        <progressbar class="progress-striped active" type="info" max="100" value="recentUpload.progress"></progressbar>
+
+                    </div>
+                    
+                </div>
+
+              </div>
+              
+        </div>
+    </div>
+
+
+</div>
+</br>
+<hr>
+
+
+
+<!-- our responsive thumbnails -->
+<div id="links">
+        <div style="float: left; margin-right: 4px; margin-bottom: 4px;" class="rotate-in" ng-repeat="pic in pics">
+            <table>
+                <tr>
+                    <td>
+                        <a href="{{pic.file_cdn_secure_url}}" title="{{pic.title}}" data-gallery>
+                               <img ng-show="pic.local_path" ng-src="{{pic.local_path}}" class="myThumbnail" alt="local">
+                               <img ng-hide="pic.local_path" ng-src="{{pic.file_thumb_cdn_secure_url}}" class="myThumbnail" alt="remote">
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                                <!-- <button ng-show="editing" ng-click="open('card')" type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button> -->
+                                <!-- <button ng-show="editing" ng-click="" type="button" class="btn btn-default"><i class="glyphicon glyphicon-save" style=""></i></button> -->
+                                <button ng-show="editing" ng-click="deletePic(pic)" type="button" class="btn btn-default animate-show" style="width:100%"><i style="color:#B30000;font-weight:500" class="fa fa-trash-o" style=""></i>&nbsp <span style="color:#B30000">Delete</button>
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+    <!-- <a href="images/lightbox/1.jpg" title="Banana" data-gallery>
+        <img src="images/lightbox/1.jpg" alt="Banana" class="myThumbnail">
+    </a>
+    <a href="images/lightbox/2.jpg" title="Apple" data-gallery>
+        <img src="images/lightbox/2.jpg" alt="Apple" class="myThumbnail">
+    </a>
+    <a href="images/lightbox/3.jpg" title="Orange" data-gallery>
+        <img src="images/lightbox/3.jpg" alt="Orange" class="myThumbnail">
+    </a> -->
+</div>
+<div style="clear:both;height:0;line-height:0;display:block;"></div>
+</br>
+
+    <div ng-repeat="block in blocks" class="col-sm-4" ng-class="{'slide-top': !disableRotationClass}" flippable on-update="updateBlock(block)" submit-button-text="Save">
+
+        <div>
+                          <button ng-show="editing" ng-click="open()" type="button" class="btn btn-default animate-show" style="float:right; margin-right:10px"><span class="glyphicon glyphicon-pencil"></span></button>
+              <h2 class="title">{{block.title}}</h2>
+              <p>{{block.body}}</p>
+              <div ng-show="editing" class="animate-show">
+
+                <!-- <button ng-show="editing" ng-click="open()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button> -->
+              <!--   <button ng-show="editing" type="button" class="btn btn-default"><i class="fa fa-trash-o" style=""></i></button> -->
+<!--               <a class="btn btn-default" href ng-click="open()">Modal &raquo;</a> <a class="btn btn-default card" href ng-click="open('card')">Card &raquo;</a> -->
+
+              </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3" style="margin-top: 30px" flippable>
+      <div>
+        <p>{{blocks[0].body}}</p>
+        <!--       <div><a class="btn btn-default" href ng-click="open('modal')">Modal &raquo;</a> <a class="btn btn-default card" href ng-click="open('card')">Card &raquo;</a></div> -->
+        <button ng-show="editing" ng-click="open()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+        <!-- <button ng-show="editing" type="button" class="btn btn-default"><i class="fa fa-trash-o"></i></button> -->
+      </div>
+    </div>
+
+<!-- <div flippable>
+<div class="col-md-4" ng-class="{'rotate-in': !disableRotationClass}" ng-repeat="repeater in repeaters">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href ng-click="open('modal')">Modal &raquo;</a> <a class="btn btn-default card" href ng-click="open('card')">Card &raquo;</a></p>
+</div>
+</div>
+ -->
+<!-- <div class="col-md-4" ng-class="{'rotate-in': !disableRotationClass}" ng-repeat="repeater in repeaters">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btnflip btn btn-default" href>Modal &raquo;</a> <a class="btnflip btn btn-default card" href>Card &raquo;</a></p>
+</div> -->
+
+<!-- <div style="position: absolute; top: 409px; left: 69px; min-height: 217px; width: 380px; z-index: 9999; height: auto;" class="flippant-back flippant-modal-light flipper flipped"><p>It's a card!</p><p><input type="text" value="Heading"></p><textarea style="width:100%; max-width:32em; height:12em;">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</textarea><br><button class="btn">Update</button></div> -->
+
+<!-- <ul>
+        <li class="rotate-in" ng-repeat="pic in pics" ng-click="removeItem(item)"><img class="myThumbnail" ng-src="{{pic.file_path}}"></li>
+    </ul> -->
+
+
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

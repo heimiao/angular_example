@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>控制器</title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-app="appName">
+		<!--
+           	作者：maweichao90@126.com
+           	时间：2015-10-26
+           	描述：模块声明和调用
+           -->
+		<div ng-controller="mycontro">
+			{{name}}
+		</div>
+		
+		
+		 <div ng-controller="contro">
+			<h3>处理事件的函数</h3>
+			<button ng-click="add(1)">点击我是加</button>
+			 <a ng-click="subtract(1)" style="background:deepskyblue">点击我是减</a>
+			 <h1>最后结果是{{count}}</h1>
+		</div>
+		<script type="text/javascript">
+			var myapp=angular.module("appName", []);
+			 myapp.controller('mycontro',
+				function($scope) {
+					$scope.name = "maweichao";
+				});
+		     myapp.controller('contro',function($scope){
+		     	$scope.count=0; 
+		     	$scope.add=function(m){
+		     		$scope.count+=m;
+		     	}
+		     	$scope.subtract=function(m){
+		     			$scope.count-=m;
+		     	}
+		     });
+		</script>
+		 
+	
+	</body>
+
+</html>

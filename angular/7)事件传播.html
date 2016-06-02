@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+
+	<body ng-app="myApp">
+		<label>someProperty = {{anotherProperty}}</label>
+		<input type="checkbox" ng-checked="anotherProperty" ng-init="anotherProperty = false" ng-model="anotherProperty">
+
+		<table ng-controller="mycontroller">
+			<tr>
+				<td><input type="checkbox" ng-checked="chek.one"  ng-model="chek.one" ng-init="chek.one = false" ng-value="ckvalue.one">{{ckvalue.one}}</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" ng-checked="chek.two"  ng-model="chek.two" ng-init="chek.two = false" ng-value="ckvalue.two"> </td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" ng-checked="chek.thre"  ng-model="chek.thre" ng-init="chek.thre = false" ng-value="ckvalue.thre"></td>
+			</tr>
+			<tr>
+				<td>全选<input type="button"   ng-click="allMethod()"  value="反选"> </td>
+				<td>全选<input type="button"   ng-click="getvalue()"  value="获取选中的值"> </td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			angular.module('myApp', []).controller("mycontroller", function($scope) {
+				var chek=[{one:true},{two:true},{thre:false}];
+				var ckvalue={one:1,two:2,thre:3}
+				 $scope.allMethod=function(){ 
+				 	  for(var i in chek){
+				 	  	if( chek[i]==true){
+				 	  		chek[i]=false;
+				 	  	}else{
+				 	  		chek[i]=true;
+				 	  	} 
+				 	  }
+				 }
+				 $scope.getvalue=function(){ 
+				 	var ckedVl=[];
+				 	  for(var i in chek){
+				 	  	if(chek[i]==true){
+				 	  		 ckedVl.push(ckvalue[i])
+				 	  	} 
+				 	  }
+				 	  alert(ckedVl);
+				 }
+				  $scope.ckvalue=ckvalue;  
+				 $scope.chek=chek;
+			});
+		</script>
+	</body>
+
+</html>

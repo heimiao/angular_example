@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>指令与指令的交互</title>
+		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+		<script src="../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="myApp">
+		<!--
+        	作者：maweichao90@126.com
+        	时间：2016-01-02
+        	描述：自定义指令
+        -->
+		<div class="col-md-6" ng-controller="mycontroller">
+			<super-man one> </super-man>
+			<super-man  two> </super-man>
+			<div super-man three> </div>
+		</div>
+		<script type="text/javascript">
+			var mymodule = angular.module('myApp', []);
+			mymodule.controller("mycontroller", ['$scope', function($scope) {
+				
+			}]);
+			mymodule.directive('superMan', function() {
+				return {
+					restrict: 'AEMC',
+					template: "<div>指令之间交互</div>",
+					controller:function($scope){ 
+						$scope.listArray=[];
+						this.addone=function(){
+							$scope.listArray.push("一级");
+						};
+						this.addtwo=function(){
+							$scope.listArray.push("二级");
+						};
+						this.addthree=function(){
+							$scope.listArray.push("三级");
+						}
+						
+					}, 
+					link: function(scope, element, attr) {
+						//为自定义指令内部绑定事件
+						element.addClass('btn btn-primary');
+						element.bind("click", function() {
+							scope.listArray.push("四级");
+							  console.log(scope.listArray);
+						});
+					}
+				}
+			});
+			
+			//为指令再次添加属性指令
+			mymodule.directive('one',function(){
+				return{
+					require:"^superMan",
+					link:function(scope, element, attr, parentOne){
+					  parentOne.addone();
+					}
+				}
+			})
+			mymodule.directive('two',function(){
+				return{
+					require:"^superMan",
+					link:function(scope, element, attr, parterController){
+						 parterController.addtwo();
+					}
+				}
+			})
+			mymodule.directive('three',function(){
+				return{
+					require:"^superMan",
+					link:function(scope, element, attr, parterController){
+						parterController.addthree();
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			ul {
+				width: 500px;
+			}
+			li {
+				width: 100%
+			}
+			span {
+				display: inline-block;
+				width: 25%;
+				text-align:center;
+			}
+			.selected{
+				background:skyblue;
+			}
+		</style> 
+	</head>
+	<body ng-app="myApp">
+		<ul ng-controller="mycontroller">
+			<li ng-repeat="item in items" ng-show="showhide" ng-click="selected($index)" ng-class="{selected:isthisrow==$index}">
+				<span>{{item.name}}</span><span id="">{{item.age}}</span><span id=""> {{item.address}}</span><span ng-click="remove($index)">删除</span>
+			</li>
+			<br>
+			<button ng-click="addIntem()">添加元素了</button>
+			<button ng-click="hide()">隐藏列表</button>
+			<button ng-click="show()">显示列表</button>
+		</ul> 
+		<script type="text/javascript">
+			angular.module('myApp', []).controller("mycontroller", function($scope) {
+				$scope.items = [{
+					name: 'xiaoming',
+					age: '23',
+					address: 'hebei'
+				}, {
+					name: 'xiaogang',
+					age: '23',
+					address: 'beijing'
+				}, {
+					name: 'xiaoming',
+					age: '23',
+					address: 'tianjin'
+				}, ];
+				$scope.remove = function(id) {
+					$scope.items.splice(id, 1)
+				};
+				$scope.addIntem = function() {
+					$scope.items.splice(0, 0, {
+						name: 'maweichao',
+						age: 28,
+						address: "hebei"
+					})
+				}
+				$scope.showhide = true;
+				$scope.hide = function() {
+					$scope.showhide = false;
+				}
+				$scope.show = function() {
+					$scope.showhide = true;
+				}
+				$scope.selected=function(its){
+					test();
+					$scope.isthisrow=its;
+				}
+			})
+			
+			function test(){
+				alert();
+			}
+		</script>
+	</body>
+
+</html>

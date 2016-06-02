@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<!-- Bootstrap core CSS -->
+	<link href="assets/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="assets/css/dashboard.css" rel="stylesheet">
+
+	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	<!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Bootstrap core JavaScript
+  ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+	<!-- Bootstrap core JavaScript
+  ================================================== -->
+
+	<script src="js/angular.min.js"></script>
+
+	<body ng-app="myApp" ng-controller="namesCtrl">
+		<div>
+			<ul>
+				<li ng-repeat="x in names">
+					<input type="text" value="{{x.sex}}" name="sex[]">
+
+					<select ng-model="selectsex" ng-options="item.id as item.value for item in sexsel"></select>
+					<option value="" ng-seleced="">-- 请选择 --</option>
+					</select>
+
+					{{ x.name + ', ' + x.country +','+x.sex}}
+					<button ng-click="remove($index)">Remove</button>
+					<button ng-click="edit($index)">edit</button>
+				</li>
+			</ul>
+			<span ng-click="add('new')">增加</span>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+
+						称呼:
+						<select ng-model="selectValue" ng-options="item.id as item.value for item in sexsel"></select>
+						<option value="">-- 请选择 --</option>
+						</select>
+
+						名:
+						<input type="text" ng-model="name">
+						<br> 名:
+						<input type="text" ng-model="country">
+						<br>
+						<input type="text" ng-model="index">
+						<br>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="addsave()">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+
+		<script>
+			angular.module('myApp', []).controller('namesCtrl', function($scope) {
+				$scope.names = [{
+					name: 'Jani',
+					country: 'Norway',
+					sex: 1
+				}, {
+					name: 'Hege',
+					country: 'Sweden',
+					sex: 5
+				}, {
+					name: 'Kai',
+					country: 'Denmark',
+					sex: 3
+				}];
+				$scope.sexsel = [{
+					id: 1,
+					value: '无'
+				}, {
+					id: 2,
+					value: '先生.'
+				}, {
+					id: 3,
+					value: '女士.'
+				}, {
+					id: 4,
+					value: '小姐.'
+				}, {
+					id: 5,
+					value: '博士.'
+				}, {
+					id: 6,
+					value: '教授.'
+				}];
+				$scope.remove = function(index) {
+					//alert($scope.names);
+					$scope.names.splice(index, 1);
+				}
+				$scope.add = function(index) {
+					$scope.name = "";
+					$scope.country = "";
+					$scope.index = "-1";
+					$('#myModal').modal('show')
+					//alert($scope.names);
+					//$scope.names.push({name:"aaa",country:"bbbb"});
+				}
+				$scope.addsave = function() {
+					$('#myModal').modal('hide')
+						//alert($scope.index);
+					if ($scope.index >= 0) {
+						$scope.names.splice($scope.index, 1, {
+							name: $scope.name,
+							country: $scope.country,
+							sex: $scope.selectValue
+						});
+					} else {
+						$scope.names.push({
+							name: $scope.name,
+							country: $scope.country,
+							sex: $scope.selectValue
+						});
+					}
+				}
+				$scope.edit = function(index) {
+					$scope.name = $scope.names[index].name;
+					$scope.country = $scope.names[index].country;
+					$scope.index = index;
+					$('#myModal').modal('show');
+					$scope.selectValue = $scope.names[index].sex;
+					//alert($scope.sexsel[index].id==$scope.names[index].sex);
+				}
+			});
+		</script>
+
+	</body>
+
+</html>
