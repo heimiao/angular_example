@@ -16,7 +16,7 @@
 				 $scope.test=1111;
 				 $scope.click=function(){
 				 	alert($scope.test); 
-					alert("我是合并之后的弹框");
+					alert("我是master分支上的修改");
  
 				 }
 			})
