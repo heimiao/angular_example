@@ -1,6 +1,6 @@
-#learngit
+ #learngit
   
-#安装及创建git
+# 安装及创建git
  1. git 查看系统是否安装git 
 	> $ git config --global user.name "Your Name"
 	> $ git config --global user.email "email@example.com"
@@ -11,7 +11,7 @@
 	>第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件； 
 	>第二步，使用命令git commit，完成。
 
-#git版本库的常用命令 
+# git版本库的常用命令 
  1. git status 查看工作区的状态
  2. git diff HEAD -- readme.txt  可以查看工作区和版本库里面最新版本的区别    
  3. git log  查看操作历史记录  或者用 git log --pretty=oneline查看整洁的历史记录
@@ -23,9 +23,10 @@
 	总之，就是让这个文件回到最近一次git commit或git add时的状态。
  7. git rm test.txt 用于删除一个文件
  
- #连接远程库
- 在这里先啰嗦几句，按道理可以自己搞一个单独的服务器来供我们使用远程连接，但是呢现在有了一个github这么一个代码托管库我们就拿这个做例子咯，要连接github栗子库要做两件事
- 第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：$ ssh-keygen -t rsa -C "youremail@example.com"
+ # 连接远程库
+     在这里先啰嗦几句，按道理可以自己搞一个单独的服务器来供我们使用远程连接，但是呢现在有了一个github这么一个代码托管库我们就拿这个做例子咯，要连接github栗子库要做两件事 
+ 第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一 步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：$ ssh-keygen -t rsa -C "youremail@example.com" 
+ 
  第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
  为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。 
  
@@ -34,7 +35,7 @@
    提示关联和clone第一次都都会出现ssh警告输入yes即可，告诉你已经把GitHub的Key添加到本机的一个信任列表里了 
  3. git clone 命令克隆地址可以是github地址也可以是你搭建的服务器地址
  
-#关于分支的命令用到的命令
+# 关于分支的命令用到的命令
  1. git branch 查看分支
  2. git branch -b dev 创建分支并切换到dev的分之上  -b指的是并切换
  3. git branch -d dev 删除指定的分支
