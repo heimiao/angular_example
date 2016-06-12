@@ -1,15 +1,15 @@
 #learngit
   
 #安装及创建git
- >1.git 查看系统是否安装git 
+ *1.git 查看系统是否安装git 
 	> $ git config --global user.name "Your Name"
 	> $ git config --global user.email "email@example.com"
 	> 注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
 
-> 2.git init 初始化一个Git仓库
-  	>添加文件到Git仓库，分两步： 
-	>第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件； 
-	>第二步，使用命令git commit，完成。
+* 2.git init 初始化一个Git仓库
+  	*添加文件到Git仓库，分两步： 
+	*第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件； 
+	*第二步，使用命令git commit，完成。
 
 #git版本库的常用命令 
  1.git status 查看工作区的状态
