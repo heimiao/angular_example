@@ -18,7 +18,7 @@
 				 	alert($scope.test); 
  
 					alert("我是原创的分支主用户");  
-					alert("我是原创的分支主用户");  
+					alert("我是dev上的分支，测试过滤好使不");  
 
   
 				 }
