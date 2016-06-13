@@ -14,10 +14,9 @@
 		<script type="text/javascript">
 			angular.module('myApp', []).controller("mycontroller", function($scope) {
 				 $scope.test=1111;
-				 $scope.click=function(){
-				 	alert($scope.test); 
-					alert("我是合并之后的弹框");
- 
+				 $scope.click=function(){ 
+				 	alert($scope.test);
+					alert("临时的bug修改了"); 
 				 }
 			})
 		</script>

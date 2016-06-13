@@ -39,8 +39,8 @@
  1. git branch 查看分支
  2. git checkout -b dev 创建分支并切换到dev的分之上  -b指的是并切换
  3. git branch -d dev 删除指定的分支
- 4. git branch merge dev 把dev分支合并到当前的分支上
- 5. 解决冲突的dev
+ 4. git branch merge dev 把dev分支合并到当前的分支上   准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：这样，从分支历史上就可以看出分支信息。
+ 5.  
 
 
 
