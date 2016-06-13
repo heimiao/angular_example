@@ -59,7 +59,9 @@
  5. git stash 隐藏某个分支上当前工作状态
  5. git stash list 查看所有被隐藏的工作状态列表（当修改bug的时候需要隐藏当前工作的状态，临行创建分支然后合并最后删除）
  6. git stash apply stash@{0}   git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除，另一种方式是用git stash pop，恢复的同时把stash内容也删了。
- 7. 
+
+# 命令别名的配置
+ 1. git config --global alias.st status   将status命令替换成自己st  git status可以写成这个git st来运行命令了 
 
 
 
