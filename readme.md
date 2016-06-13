@@ -34,15 +34,20 @@
  2. git push -u origin master 把本地库推送到我远程关联的仓库里边，由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。推送一次之后就可以用git push origin master推送最新修改了。
    提示关联和clone第一次都都会出现ssh警告输入yes即可，告诉你已经把GitHub的Key添加到本机的一个信任列表里了 
  3. git clone 命令克隆地址可以是github地址也可以是你搭建的服务器地址
- 
+ 4. git remote 查看远程库的信息 或者，用git remote -v显示更详细的信息：
+ 5. git push origin master 推送分支，就是把该分支上的所有本地提交推送到远程库。如果要推送其他分支，比如dev，就改成：git push origin dev
+ 6. git checkout -b dev origin/dev 就必须创建远程origin的dev分支到本地 (当你的小伙伴从远程库clone时，默认情况下，你的小伙伴只能看到本地的master分支。现在，你的小伙伴要在dev分支上开发，就必须创建远程origin的dev分支到本地，于是他用这个命令创建本地dev分支。)
+
+
 # 关于分支的命令用到的命令
  1. git branch 查看分支
  2. git checkout -b dev 创建分支并切换到dev的分之上  -b指的是并切换
- 3. git branch -d dev 删除指定的分支
+ 3. git branch -d dev 删除指定的分支  某分支分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用命令git branch -D feature-vulcan。
  4. git branch merge dev 把dev分支合并到当前的分支上   准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：这样，从分支历史上就可以看出分支信息。
- 5.  
-
-
+ 5. git stash 隐藏某个分支上当前工作状态
+ 5. git stash list 查看所有被隐藏的工作状态列表（当修改bug的时候需要隐藏当前工作的状态，临行创建分支然后合并最后删除）
+ 6. git stash apply stash@{0}   git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除，另一种方式是用git stash pop，恢复的同时把stash内容也删了。
+ 7. 
 
 
 
