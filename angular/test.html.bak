@@ -16,11 +16,11 @@
 				 $scope.test=1111;
 				 $scope.click=function(){
 				 	alert($scope.test); 
-<<<<<<< HEAD
+ 
 					alert("我是原创的分支主用户");  
-=======
-					alert("我是新的工作人员在dev的分支上"); 
->>>>>>> 6924c64ccb4a136450f357bec552b358a5e6159a
+					alert("我是原创的分支主用户");  
+
+  
 				 }
 			})
 		</script>
