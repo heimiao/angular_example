@@ -13,11 +13,13 @@
 		 </div>
 		<script type="text/javascript">
 			angular.module('myApp', []).controller("mycontroller", function($scope) {
-				 $scope.test=1111;
- 
+				 $scope.test=1111;  
 				 $scope.click=function(){ 
+
 				 	alert($scope.test); 
 					alert("我是原创的分支主用户");   
+					console.log("添加忽略文件");
+
 				 }
 			})
 		</script>
